@@ -1,0 +1,63 @@
+# Breast Cancer Prediction using Machine Learning
+
+# Step 1: Import libraries
+import pandas as pd
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
+# Step 2: Load dataset
+data = load_breast_cancer()
+
+X = data.data      # input features
+y = data.target    # output class
+
+# Step 3: Convert to DataFrame
+df = pd.DataFrame(X, columns=data.feature_names)
+df['target'] = y
+
+print("Dataset Sample:")
+print(df.head())
+
+print("\nTarget Names:")
+print(data.target_names)
+# 0 = malignant, 1 = benign
+
+# Step 4: Split dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# Step 5: Feature scaling
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Step 6: Train ML model
+model = LogisticRegression(max_iter=1000)
+model.fit(X_train, y_train)
+
+# Step 7: Prediction
+y_pred = model.predict(X_test)
+
+# Step 8: Evaluation
+print("\nAccuracy:")
+print(accuracy_score(y_test, y_pred))
+
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, y_pred))
+
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred, target_names=data.target_names))
+
+# Step 9: Predict one new sample
+sample = X_test[0].reshape(1, -1)
+prediction = model.predict(sample)
+
+print("\nSample Prediction:")
+if prediction[0] == 0:
+    print("Malignant Breast Cancer")
+else:
+    print("Benign / Non-Cancer")
