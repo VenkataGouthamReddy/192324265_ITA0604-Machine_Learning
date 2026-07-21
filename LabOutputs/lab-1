@@ -1,0 +1,23 @@
+# FIND-S Algorithm
+
+# Training data
+data = [
+    ["Sunny", "Warm", "Normal", "Strong", "Yes"],
+    ["Sunny", "Warm", "High", "Strong", "Yes"],
+    ["Rainy", "Cold", "High", "Strong", "No"],
+    ["Sunny", "Warm", "High", "Weak", "Yes"]
+]
+
+# Step 1: Take the first positive example as the initial hypothesis
+hypothesis = data[0][:-1]
+
+# Step 2: Compare with all positive examples
+for sample in data:
+    if sample[-1] == "Yes":      # Consider only positive examples
+        for i in range(len(hypothesis)):
+            if hypothesis[i] != sample[i]:
+                hypothesis[i] = "?"   # Replace different values with '?'
+
+# Step 3: Display the final hypothesis
+print("Most Specific Hypothesis:")
+print(hypothesis)
