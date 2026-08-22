@@ -1,0 +1,29 @@
+from sklearn.naive_bayes import GaussianNB
+
+# Age, Income
+X = [
+    [25, 20000],
+    [30, 30000],
+    [35, 50000],
+    [40, 60000],
+    [45, 80000],
+    [50, 90000]
+]
+
+y = [
+    'No',
+    'No',
+    'Yes',
+    'Yes',
+    'Yes',
+    'Yes'
+]
+
+model = GaussianNB()
+
+model.fit(X, y)
+
+sample = [[38, 55000]]
+
+print("Loan Decision:",
+      model.predict(sample)[0])
