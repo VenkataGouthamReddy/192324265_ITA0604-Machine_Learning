@@ -1,0 +1,17 @@
+from sklearn.tree import DecisionTreeClassifier
+
+X = [
+    [30000, 500],
+    [40000, 550],
+    [60000, 700],
+    [80000, 750],
+    [90000, 800]
+]
+
+y = ['Poor', 'Poor', 'Good', 'Good', 'Excellent']
+
+model = DecisionTreeClassifier()
+model.fit(X, y)
+
+print("Credit Score:",
+      model.predict([[70000, 720]])[0])
