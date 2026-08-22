@@ -1,0 +1,26 @@
+data = [
+    ['Sunny', 'Warm', 'Normal', 'Strong', 'Yes'],
+    ['Sunny', 'Warm', 'High', 'Strong', 'Yes'],
+    ['Rainy', 'Cold', 'High', 'Strong', 'No'],
+    ['Sunny', 'Warm', 'High', 'Weak', 'Yes']
+]
+
+S = ['0', '0', '0', '0']
+G = ['?', '?', '?', '?']
+
+for row in data:
+    x = row[:-1]
+
+    if row[-1] == 'Yes':
+        for i in range(4):
+            if S[i] == '0':
+                S[i] = x[i]
+            elif S[i] != x[i]:
+                S[i] = '?'
+    else:
+        for i in range(4):
+            if G[i] == '?' and S[i] != x[i]:
+                G[i] = S[i]
+
+print("Specific Boundary:", S)
+print("General Boundary:", G)
